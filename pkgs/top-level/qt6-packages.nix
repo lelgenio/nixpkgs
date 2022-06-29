@@ -37,4 +37,6 @@ in
     qt6Support = true;
     suffix = "qt6";
   };
+
+  qt6ct = callPackage ../tools/misc/qt6ct { };
 })))
