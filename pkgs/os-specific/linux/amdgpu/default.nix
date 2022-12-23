@@ -14,7 +14,7 @@ stdenv.mkDerivation {
   src = kernel.src;
 
   postUnpack = ''
-    cd */usr/src
+    cd linux-*
     sourceRoot="$(pwd -P)"
   '';
 
