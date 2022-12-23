@@ -267,6 +267,8 @@ in {
 
     akvcam = callPackage ../os-specific/linux/akvcam { };
 
+    amdgpu = callPackage ../os-specific/linux/amdgpu { };
+
     amdgpu-pro = callPackage ../os-specific/linux/amdgpu-pro {
       libffi = pkgs.libffi.overrideAttrs (orig: rec {
         version = "3.3";
