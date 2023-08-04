@@ -152,6 +152,10 @@ let
       fi
       if [[ -L $i ]]; then
         symlinks+=(--symlink "$(${coreutils}/bin/readlink "$i")" "$i")
+      elif [[ -f $i && -r $i ]]; then
+        SNAPSHOT=$(mktemp --dry-run)
+        cp "$i" "$SNAPSHOT"
+        ro_mounts+=(--ro-bind-try "$SNAPSHOT" "$i")
       else
         ro_mounts+=(--ro-bind-try "$i" "$i")
       fi
