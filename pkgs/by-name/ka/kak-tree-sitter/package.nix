@@ -4,8 +4,14 @@
   symlinkJoin,
   tinycc,
   kak-tree-sitter-unwrapped,
+  callPackage,
 }:
 
+let
+  languagesLib = callPackage ./languages {
+    configFile = "${kak-tree-sitter-unwrapped.src}/kak-tree-sitter-config/default-config.toml";
+  };
+in
 symlinkJoin (finalAttrs: {
   pname = lib.replaceStrings [ "-unwrapped" ] [ "" ] kak-tree-sitter-unwrapped.pname;
   inherit (kak-tree-sitter-unwrapped) version;
@@ -22,6 +28,10 @@ symlinkJoin (finalAttrs: {
     wrapProgram "$out/bin/ktsctl" \
       --suffix PATH : $out/libexec/tinycc/bin
   '';
+
+  passthru = {
+    inherit (languagesLib) grammars languages localConfig mkLocalConfig;
+  };
 
   inherit (kak-tree-sitter-unwrapped) meta;
 })
